@@ -42,7 +42,6 @@ def predict(audio, sample_rate, hop_length=None, fmin=50, fmax=MAX_FMAX, model='
 def infer(frames, model='full', device='cpu', embed=False):
     if not hasattr(infer, 'model') or not hasattr(infer, 'capacity') or (hasattr(infer, 'capacity') and infer.capacity != model): load_model(device, model)
     infer.model = infer.model.to(device)
-
     return infer.model(frames, embed=embed)
 
 def load_model(device, capacity='full'):
@@ -54,7 +53,6 @@ def load_model(device, capacity='full'):
 
 def postprocess(probabilities, fmin=0, fmax=MAX_FMAX, return_periodicity=False):
     probabilities = probabilities.detach()
-
     probabilities[:, :frequency_to_bins(torch.tensor(fmin))] = -float('inf')
     probabilities[:, frequency_to_bins(torch.tensor(fmax), torch.ceil):] = -float('inf')
 
