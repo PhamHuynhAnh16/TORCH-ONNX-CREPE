@@ -1,0 +1,6 @@
+onnxruntime-gpu; sys_platform == 'darwin'
+onnxruntime; sys_platform != 'darwin'
+librosa
+numpy
+torch
+scipy
